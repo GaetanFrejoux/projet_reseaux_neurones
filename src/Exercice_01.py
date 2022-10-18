@@ -42,22 +42,18 @@ def apprentissage_widrow(x, yd, epoch, batch_size):
     w = np.random.randn(3)
     erreur = []
     for i in range(epoch):
-        e = 0
         w_temp = w
+        erreur.append(0)
         for j in range(len(x)):
             y = perceptron_simple(x[j], w, 1)  # with tanh
             r = - (yd[j] - y) * (1 - y * y)
             w_temp += ALPHA * r * np.array([1, x[j][0], x[j][1]])
-            e += r**2
-            if (j % batch_size) == 0:
-                w = w_temp
+            erreur[i] += r**2
+            if (j % batch_size) == 0: w = w_temp
+        plot_with_class(x, w, yd, "1.2 Widrow-Hoff - Epoch " + str(i + 1))
 
-        erreur.append(e)
-        plot_with_class(x, w, yd, "1.2 Widrow-Hoff - Epoch " + str(i))
+        if (erreur[i] == 0 or (i != 0 and (erreur[i - 1] - erreur[i] == 0))): break
 
-        if (e == 0):
-            print("Epoch: ", i)
-            break
     return w, erreur
 
 
