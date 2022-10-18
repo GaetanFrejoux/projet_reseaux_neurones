@@ -99,3 +99,28 @@ w2 = np.array([2.0, -1.0, 1.0])
 
 
 print(multiperceptron(x, w1, w2))
+
+
+# 1.3.2 *Programmation apprentissage multicouches*
+ALPHA = 0.5
+def multiperceptron_widrow(x, yd, epoch, batch_size):
+    def activation(x):
+        return 1 / (1 + np.exp(-x))  # sigmoid
+
+    w1 = np.random.randn(3, 2)
+    w2 = np.random.randn(3)
+    erreur = []
+
+    # TODO : implement
+
+    return w1, w2, erreur
+
+
+
+    
+
+x  = np.array([[0,1,0,1],[0,0,1,1]])
+yd = np.array([0, 1, 1, 0])
+
+
+w1, w2, erreur = multiperceptron_widrow(x, yd, 100, 1)
