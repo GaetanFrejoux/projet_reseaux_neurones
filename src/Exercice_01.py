@@ -5,6 +5,7 @@ from resources import (URL_P2_D1, URL_P2_D2, URL_SAVE_RES_E01)
 
 
 ALPHA = 0.1
+RESULTS_LOCATION = URL_SAVE_RES_E01 # Simply the url where the figures are saved
 
 # 1.1
 
@@ -18,33 +19,17 @@ def perceptron_simple(x, w, active):
     x = seuil + dot
     return np.sign(x) if (active == 0) else np.tanh(x)
 
-active = 0
-
-result = perceptron_simple(X, W_OR, active)
-# if result[i] = -1 then CLASS 0 else if result[i] = 1 then CLASS 1
-plt.scatter(X[:, 0], X[:, 1], c=result)
-
-# draw the hyperplane
-if active == 0:
-    a0 = np.linspace(-1, 2)
-    a1 = (W_OR[0] + a0*W_OR[1]) / (-W_OR[2])
-    plt.plot(a0, a1, 'r-')
-elif active == 1:
-    plt.axhline(y=W_OR[0], color='red', linestyle='-')
-
-
-plt.show()
-plt.savefig(URL_SAVE_RES_E01 + "1.1.png")
-
-
-def plot_with_class(X,w,c,title):
-    x = np.linspace(-2,2,50)
-    y = (w[0] + x*w[1]) / (-w[2])
+def plot_with_class(X, Weight, c, title, Url = RESULTS_LOCATION):
+    x = np.linspace(-1,2)
+    y = (Weight[0] + x*Weight[1]) / (-Weight[2])
     plt.title(title)
-    plt.plot(x, y)
-    plt.scatter(X[:,0],X[:,1],c=c)
+    plt.scatter(X[:, 0], X[:, 1], c=c)
+    plt.plot(x, y, 'r-')
     plt.grid()
-    plt.show()
+    plt.savefig(Url + title + '.png')
+
+Result_OR = perceptron_simple(X, W_OR, 0)
+plot_with_class(X, W_OR, Result_OR, "1.1 - OR")
 
 # 1.2 Widrow-hoff
 
