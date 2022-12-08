@@ -21,16 +21,14 @@ def perceptron_simple(x, w, active):
     return np.sign(x) if (active == 0) else np.tanh(x)
 
 
-def plot_with_class(X, Weight, c, title, Save=False, Url=RESULTS_LOCATION):
+def plot_with_class(X, weight, c, title):
     x = np.linspace(-1, 2)
-    y = (Weight[0] + x*Weight[1]) / (-Weight[2])
+    y = (weight[0] + x*weight[1]) / (-weight[2])
     plt.title(title)
     plt.scatter(X[:, 0], X[:, 1], c=c)
     plt.plot(x, y, 'r-')
     plt.grid()
-    if (Save): plt.savefig(Url + title + '.png')
-    else: plt.show()
-    plt.close()
+    plt.show()
 
 
 #Result_OR = perceptron_simple(X, W_OR, 0)
